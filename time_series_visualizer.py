@@ -39,12 +39,12 @@ def draw_bar_plot():
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     fig, ax = plt.subplots(figsize=(10,10))
     width = 0.05
-    edge = -(len(months)/2)*width
+    delta_x = -(len(months)/2)*width # Initially displacement length of bars
     for m in months:
         df_bar_months = df_bar.loc[df_bar['month'] == m]
         monthly_avg_per_year = df_bar_months.groupby('year')['value'].mean()
-        bar = ax.bar(monthly_avg_per_year.index + edge, monthly_avg_per_year, width, label=m, linewidth=0)
-        edge+=width
+        bar = ax.bar(monthly_avg_per_year.index + delta_x, monthly_avg_per_year, width, label=m, linewidth=0)
+        delta_x+=width
     # linewidth=0 para que no hayan bordes o espaciones entre barras, y así queden pegadas una a la otra
     ax.set_xticks(df_bar['year'].unique()) # Cambiamos los valores en el eje x para solo mostrar los años
     ax.set_xlabel('Years')
